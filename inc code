@@ -141,7 +141,7 @@ public class dup {
 							System.out.println("none");
 						}
 					  }
-Elements left9 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(11)");
+						Elements left9 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(11)");
 						for (Element sub9 : left9) {
 							String leftside = sub9.getElementsByClass("name").text();
 						if(leftside.contains("LinkedIn")) {
