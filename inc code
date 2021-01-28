@@ -1,0 +1,201 @@
+package Inc;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Scanner;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+
+public class dup {
+
+	public static void main(String[] args) throws FileNotFoundException, SQLException {
+		File file = new File("/home/dinesh/incprofile.txt");
+		Scanner scan;
+		String profileurl="null",profilenumber="null",profilename="null",descr="null",growth="null",industry="null",location="null",
+				leadership="null",yearfounded="null",companysize="null",ranking="null",regionals ="null",website="null",linkedInurl="null",twitterurl="null",facebookurl="null";
+		scan = new Scanner(file);
+			while (scan.hasNextLine()) {
+				try {
+					profileurl = scan.nextLine();
+					Document doc = Jsoup.connect(profileurl).get();
+					Thread.sleep(2000);
+						profilenumber = doc.select("div.sc-qQmou:nth-child(5) > div:nth-child(1) > h2:nth-child(1)").text();
+					profilename = doc.select("div.sc-qQmou:nth-child(5) > div:nth-child(1) > div:nth-child(2) > div:nth-child(1) > h2:nth-child(1)").text();
+					
+					descr = doc.select(
+							"div.sc-qQmou:nth-child(5) > div:nth-child(3) > p:nth-child(2)")
+							.text();
+					Elements main = doc.select("div.sc-qQmou:nth-child(5)");
+					Elements left = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(2)");
+					for (Element sub : left) {
+							String leftside = sub.getElementsByClass("name").text();
+						if(leftside.contains("3-Year Growth")) {
+							growth = sub.getElementsByClass("overflow").text();
+
+						}else {
+							System.out.println("none");
+
+						}
+					  }
+					Elements left1 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(3)");
+						for (Element sub1 : left1) {
+							String leftside = sub1.getElementsByClass("name").text();
+						if(leftside.contains("Industry")) {
+							industry = sub1.getElementsByClass("overflow").text();
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+						Elements left2 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(4)");
+						for (Element sub2 : left2) {
+							String leftside = sub2.getElementsByClass("name").text();
+						if(leftside.contains("Location")) {
+							location = sub2.getElementsByClass("overflow").text();
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+						Elements left3 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(5)");
+						for (Element sub3 : left3) {
+							String leftside = sub3.getElementsByClass("name").text();
+						if(leftside.contains("Leadership")) {
+							leadership = sub3.getElementsByClass("overflow").text();
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+
+						Elements left4 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(6)");
+						for (Element sub4 : left4) {
+							String leftside = sub4.getElementsByClass("name").text();
+						if(leftside.contains("Year Founded")) {
+							yearfounded = sub4.getElementsByClass("overflow").text();
+
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+						Elements left5 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(7)");
+						for (Element sub5 : left5) {
+							String leftside = sub5.getElementsByClass("name").text();
+						if(leftside.contains("Company Size")) {
+							companysize = sub5.getElementsByClass("overflow").text();
+
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+						Elements left6 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(8)");
+						for (Element sub6 : left6) {
+							String leftside = sub6.getElementsByClass("name").text();
+						if(leftside.contains("Inc. 5000 Rankings")) {
+							ranking = sub6.getElementsByClass("overflow").text();
+
+
+							}else {
+								System.out.println("none");
+							}
+						  }
+						Elements left7 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(9)");
+						for (Element sub7 : left7) {
+							String leftside = sub7.getElementsByClass("name").text();
+						if(leftside.contains("Website")) {
+							website = sub7.getElementsByClass("overflow").text();
+							System.out.println(website);
+						}else if(leftside.contains("Inc. 5000 Regionals")) {
+							regionals = sub7.getElementsByClass("overflow").text();
+							System.out.println(regionals);
+						}else {
+							System.out.println("none");
+						}		
+						}
+						
+						Elements left8 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(10)");
+						for (Element sub8 : left8) {
+							String leftside = sub8.getElementsByClass("name").text();
+						if(leftside.contains("Website")) {
+							website = sub8.getElementsByClass("overflow").text();
+							System.out.println(website);
+						}else if(leftside.contains("LinkedIn")) {
+							linkedInurl = sub8.getElementsByClass("overflow").text();
+						}else if(leftside.contains("Twitter")) {
+							twitterurl = sub8.getElementsByClass("overflow").text();
+							System.out.println(twitterurl);
+						}else if(leftside.contains("Facebook")) {
+							facebookurl = sub8.getElementsByClass("overflow").text();
+								System.out.println(facebookurl);
+						}else {
+							System.out.println("none");
+						}
+					  }
+Elements left9 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(11)");
+						for (Element sub9 : left9) {
+							String leftside = sub9.getElementsByClass("name").text();
+						if(leftside.contains("LinkedIn")) {
+							linkedInurl = sub9.getElementsByClass("overflow").text();
+							System.out.println(linkedInurl);
+						}else if(leftside.contains("Twitter")) {
+							twitterurl = sub9.getElementsByClass("overflow").text();
+							System.out.println(twitterurl);
+						}else if(leftside.contains("Facebook")) {
+							facebookurl = sub9.getElementsByClass("overflow").text();
+								System.out.println(facebookurl);
+						}else {
+							System.out.println("none");
+						}
+					  }
+						Elements left10 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(12)");
+						for (Element sub10 : left10) {
+							String leftside = sub10.getElementsByClass("name").text();
+						if(leftside.contains("LinkedIn")) {
+							linkedInurl = sub10.getElementsByClass("overflow").text();
+							System.out.println(linkedInurl);
+						}else if(leftside.contains("Twitter")) {
+							twitterurl = sub10.getElementsByClass("overflow").text();
+							System.out.println(twitterurl);
+						}else if(leftside.contains("Facebook")) {
+							facebookurl = sub10.getElementsByClass("overflow").text();
+								System.out.println(facebookurl);
+						}else {
+							System.out.println("none");
+						}
+					  }
+						Elements left11 = main.select("div.sc-qQmou:nth-child(5) > div:nth-child(2) > div:nth-child(13)");
+						for (Element sub11 : left11) {
+							String leftside = sub11.getElementsByClass("name").text();
+						if(leftside.contains("LinkedIn")) {
+							linkedInurl = sub11.getElementsByClass("overflow").text();
+							System.out.println(linkedInurl);
+						}else if(leftside.contains("Twitter")) {
+							twitterurl = sub11.getElementsByClass("overflow").text();
+							System.out.println(twitterurl);
+						}else if(leftside.contains("Facebook")) {
+							facebookurl = sub11.getElementsByClass("overflow").text();
+								System.out.println(facebookurl);
+						}else {
+							System.out.println("none");
+						}
+					  }
+
+
+					
+					}catch (Exception e) {
+					System.out.println(profileurl);
+				}
+			}	
+	}
+}
+
